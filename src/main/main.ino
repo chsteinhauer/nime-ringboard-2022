@@ -4,7 +4,7 @@
 #include "synth.h"
 
 Mpr121 mpr121;
-Processor processor;
+AudioProcessor processor;
 Synth synth;
 
 u16 touch_status_flag[CHANNEL_NUM] = {0};
@@ -40,11 +40,11 @@ void loop() {
         updateTouchFlags(result,i);
 
         if (1 == touch_status_flag[i]) {
-            const value = processor.smoothen(i, filtered_data_buf[i]);
+            auto value = processor.smoothen(i, filtered_data_buf[i]);
 
             synth.play(i, value);
         } else {
-            const value = processor.smoothen(i, 0);
+            auto value = processor.smoothen(i, 0);
 
             synth.stop(i, value);
         }

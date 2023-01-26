@@ -1,6 +1,9 @@
 #include "utils.h"
 #include <Audio.h>
 
+#ifndef SYNTH_H_
+#define SYNTH_H_
+
 class Synth {
 public:
 
@@ -16,10 +19,10 @@ public:
     void play(int index, float value) {
         switch (state)
         {
-        case State::TEST:
+        case I::State::TEST:
             test[index].play(value);
             break;
-        case State::GLASS:
+        case I::State::GLASS:
             glass[index].play(value);
             break;
         default:
@@ -31,10 +34,10 @@ public:
     void stop(int index, float value) {
         switch (state)
         {
-        case State::TEST:
+        case I::State::TEST:
             test[index].stop(value);
             break;
-        case State::GLASS:
+        case I::State::GLASS:
             glass[index].stop(value);
             break;
         
@@ -78,10 +81,11 @@ private:
     Test test[CHANNEL_NUM];
     Glass glass[CHANNEL_NUM];
 
-    State state;
+    I::State state;
 
-    Note scale[CHANNEL_NUM] = {
-        C3,D3,E3,F3,G3,A3,B3,C4,D4,E4,F4,G4
+    I::Note scale[CHANNEL_NUM] = {
+        I::C3,I::D3,I::E3,I::F3,I::G3,I::A_3,I::B_3,I::C4,I::D4,I::E4,I::F4,I::G4
     };
 };
 
+#endif

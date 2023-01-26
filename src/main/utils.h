@@ -1,10 +1,12 @@
 #include "interfaces.h"
 
-
+#ifndef UTILS_H_
+#define UTILS_H_
 
 struct Utils {
-    static double getFrequency(Note note) {
-        return Frequency[note];
+      
+    static double getFrequency(I::Note note) {
+        return I::Frequency[note];
     }
 
     static float calcGain(float value) {
@@ -12,13 +14,15 @@ struct Utils {
 
         return (200.f - value);
     }
+
+
 };
 
 
-struct Processor {
+struct AudioProcessor {
     const static int ringCount = 12;
     const static int bSize = 50;
-    float circularBuffer[ringCount][bSize] = {0};
+    float circularBuffer[ringCount][bSize] = {{0}};
     float rtotal[ringCount] = {0};
     int bindex = 0;
 
@@ -36,3 +40,5 @@ struct Processor {
         return 200.f-(rtotal[index] * scale);
     }
 };
+
+#endif
