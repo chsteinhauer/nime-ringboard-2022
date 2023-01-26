@@ -23,7 +23,7 @@ void setup() {
         When the sensor is connected to items such as crocodile clip,
         the value needs to be adjusted
     */
-    mpr121.set_sensitivity(0x60);
+    mpr121.set_sensitivity(0x70);
     delay(100);
 }
 
@@ -40,13 +40,18 @@ void loop() {
         updateTouchFlags(result,i);
 
         if (1 == touch_status_flag[i]) {
-            auto value = processor.smoothen(i, filtered_data_buf[i]);
-
-            synth.play(i, value);
+            //auto value = processor.smoothen(i, filtered_data_buf[i]);
+            Serial.print("Value ");
+            Serial.print(i);
+            Serial.print(": ");
+            Serial.println(filtered_data_buf[i]);
+            //Serial.print(" - ");
+            //Serial.println(value);
+            //synth.play(i, value);
         } else {
-            auto value = processor.smoothen(i, 0);
+            //auto value = processor.smoothen(i, 0);
 
-            synth.stop(i, value);
+            //synth.stop(i, value);
         }
     }
 }
@@ -57,6 +62,8 @@ void updateTouchFlags(u16 result, int i) {
     if (result & (1 << i)) {                      /*key i is pressed!!*/
         if (0 == touch_status_flag[i]) {
             touch_status_flag[i] = 1;
+
+            Serial.println();
         }
     } else {
         if (1 == touch_status_flag[i]) {
