@@ -1,17 +1,27 @@
-#include "utils.h"
-#include <Audio.h>
+
 
 #ifndef SYNTH_H_
 #define SYNTH_H_
 
-class Synth {
+#include "utils.h"
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+
+class ProSynth {
 public:
 
+    AudioOutputI2S i2s2; 
+    AudioSynthWaveform waveform1;
+    
     void prepare() {
         for (int i = 0; i < CHANNEL_NUM; i++) {
             double freq = Utils::getFrequency(scale[i]);
 
-            test[i].prepare(freq);
+            test[i].prepare(freq, i2s2);
             glass[i].prepare(freq);
         }
     }
@@ -48,18 +58,20 @@ public:
     
 private:
     struct Test {
-        AudioSynthWaveform waveform;
+        
+//        AudioConnection          patchCord1(waveform1, 0, i2s2, 0);
+  //      AudioConnection          patchCord2(waveform1, 0, i2s2, 1);
 
-        void prepare(double frequency) {
-             waveform.begin(0, frequency, WAVEFORM_SINE);
+        void prepare(double frequency, AudioOutputI2S i2s2) {
+            waveform1.begin(0, frequency, WAVEFORM_SINE);
         }
 
         void play(float value) {
-            waveform.amplitude(value);
+            waveform1.amplitude(value);
         }
 
         void stop(float value) {
-            waveform.amplitude(0);
+            waveform1.amplitude(0);
         }
     };
 

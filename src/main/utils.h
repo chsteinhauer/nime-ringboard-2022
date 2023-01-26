@@ -1,7 +1,9 @@
-#include "interfaces.h"
+
 
 #ifndef UTILS_H_
 #define UTILS_H_
+
+#include "interfaces.h"
 
 struct Utils {
       
@@ -11,9 +13,13 @@ struct Utils {
 
     static float calcGain(float value) {
         //float val = powf((100.f - value),2);
-
-        return (200.f - value);
+        //return (200.f - value);
+            
+    
+    
     }
+
+    
 
 
 };
@@ -37,7 +43,7 @@ struct AudioProcessor {
         circularBuffer[index][bindex] = value;
         rtotal[index] += value;
 
-        return 200.f-(rtotal[index] * scale);
+        return (rtotal[index] * scale);
     }
 };
 
