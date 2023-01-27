@@ -68,7 +68,7 @@ void loop() {
             //Serial.print(" - ");
             //Serial.println(value);
             //synth.play(i, value);
-            auto gain1 = (2-value);
+            auto gain1 = (1-value);
             play(gain1);
             Serial.println(gain1);
         } else if(i == 1) {
