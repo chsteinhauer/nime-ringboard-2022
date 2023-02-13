@@ -1,6 +1,6 @@
 
 
-#define CHANNEL_NUM   12
+#define CHANNEL_NUM1   12
 
 #ifndef INTERFACES_H_
 #define INTERFACES_H_
